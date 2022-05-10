@@ -10,6 +10,7 @@ const messagesRoute = require('./routes/messages');
 const aboutRoute = require('./routes/about');
 const skillsRoute = require('./routes/skills');
 const videosRoute = require('./routes/videos');
+const port = process.env.PORT || 3001;
 
 dotenv.config();
 
@@ -33,6 +34,6 @@ app.use('/api/about', aboutRoute);
 app.use('/api/skills', skillsRoute);
 app.use('/api/videos', videosRoute);
 
-app.listen(3001, () => {
+app.listen(port, () => {
 	console.log('Server is running...')
 })
