@@ -8,8 +8,7 @@ router.post('/create', verify, async (req, res) => {
   if(req.user.isAdmin){
     try {
       const savedSkill = await newSkill.save();
-      const allSkills = Skill.find();
-      res.status(200).json({ message: 'Skill created successfully', payload: allSkills.reverse() });
+      res.status(200).json({ message: 'Skill created successfully', payload: savedSkill });
     } catch (error) {
       res.status(500).json(error)
     }

@@ -8,10 +8,9 @@ router.post('/create', verify, async (req, res) => {
   if(req.user.isAdmin){
     try {
       const savedProject = await newProject.save();
-      const allProjects = await Project.find();
-      return res.status(200).json({ message: 'Project created successfully', payload: allProjects.reverse() });
+      res.status(200).json({ message: 'Project created successfully', payload: savedProject });
     } catch (error) {
-      return res.status(500).json(error)
+      res.status(500).json(error)
     }
   } else {
     res.status(403).json("You do not have permission!")
