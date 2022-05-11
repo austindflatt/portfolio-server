@@ -3,7 +3,7 @@ const Video = require('../models/videosModel');
 const { verify } = require('./verifyToken');
 
 // CREATE VIDEO
-router.post('/create', async (req, res) => {
+router.post('/create', verify, async (req, res) => {
   const newVideo = new Video(req.body);
   try {
     const savedVideo = await newVideo.save();
@@ -14,7 +14,7 @@ router.post('/create', async (req, res) => {
 });
 
 // UPDATE VIDEO
-router.put('/update/:id', async (req, res) => {
+router.put('/update/:id', verify, async (req, res) => {
   try {
     const updatedVideo = await Video.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
     res.status(200).json(updatedVideo);
@@ -24,7 +24,7 @@ router.put('/update/:id', async (req, res) => {
 });
 
 // DELETE VIDEO
-router.delete('/delete/:id', async (req, res) => {
+router.delete('/delete/:id', verify, async (req, res) => {
   try {
     await Video.findByIdAndDelete(req.params.id);
     res.status(200).json({ message: 'Video Info deleted successfully' });
