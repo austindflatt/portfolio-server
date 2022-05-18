@@ -22,7 +22,7 @@ router.put('/update/:id', verify, async (req, res) => {
   if(req.user.isAdmin){
     try {
       await Skill.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
-      const allSkills = Skill.find()
+      const allSkills = await Skill.find()
       return res.status(200).json(allSkills.reverse());
     } catch (error) {
       return res.status(500).json(error)
