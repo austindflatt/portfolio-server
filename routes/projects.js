@@ -21,10 +21,11 @@ router.post('/create', verify, async (req, res) => {
 router.put('/update/:id', verify, async (req, res) => {
   if(req.user.isAdmin) {
     try {
-      const updatedProject = await Project.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
-      res.status(200).json(updatedProject);
+      await Project.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+      const allProjects = await Project.find()
+      return res.status(200).json(allProjects.reverse());
     } catch (error) {
-      res.status(500).json(error)
+      return res.status(500).json(error)
     }
   } else {
     res.status(403).json("You do not have permission!")
