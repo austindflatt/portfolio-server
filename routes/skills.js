@@ -9,7 +9,7 @@ router.post('/create', verify, async (req, res) => {
     try {
       await newSkill.save();
       const allSkills = await Skill.find()
-      return res.status(200).json({ message: 'Skill created successfully', payload: allSkills.reverse() });
+      return res.status(200).json(allSkills.reverse());
     } catch (error) {
       return res.status(500).json(error)
     }
