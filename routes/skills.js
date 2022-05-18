@@ -7,10 +7,11 @@ router.post('/create', verify, async (req, res) => {
   const newSkill = new Skill(req.body);
   if(req.user.isAdmin){
     try {
-      const savedSkill = await newSkill.save();
-      res.status(200).json({ message: 'Skill created successfully', payload: savedSkill });
+      await newSkill.save();
+      const allSkills = await Skill.find()
+      return res.status(200).json({ message: 'Skill created successfully', payload: allSkills.reverse() });
     } catch (error) {
-      res.status(500).json(error)
+      return res.status(500).json(error)
     }
   } else {
     res.status(403).json("You do not have permission!")
