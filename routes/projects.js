@@ -8,8 +8,7 @@ router.post('/create', verify, async (req, res) => {
   if(req.user.isAdmin){
     try {
       const savedProject = await newProject.save();
-      const allProjects = await Project.find();
-      res.status(200).json({ message: 'Project created successfully', payload: allProjects.reverse() });
+      res.status(200).json({ message: 'Project created successfully', payload: savedProject.reverse() });
     } catch (error) {
       res.status(500).json(error)
     }
