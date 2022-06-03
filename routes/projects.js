@@ -22,7 +22,7 @@ router.put('/update/:id', verify, async (req, res) => {
   if(req.user.isAdmin) {
     try {
       await Project.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
-      const allProjects = await Project.find()
+      const allProjects = await Project.find();
       return res.status(200).json(allProjects.reverse());
     } catch (error) {
       return res.status(500).json(error)

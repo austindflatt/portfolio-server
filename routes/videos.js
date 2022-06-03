@@ -16,8 +16,9 @@ router.post('/create', verify, async (req, res) => {
 // UPDATE VIDEO
 router.put('/update/:id', verify, async (req, res) => {
   try {
-    const updatedVideo = await Video.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
-    res.status(200).json(updatedVideo);
+    await Video.findByIdAndUpdate(req.params.id, { $set: req.body }, { new: true });
+    const allVideos = await Video.find();
+    res.status(200).json(allVideos.reverse());
   } catch (error) {
     res.status(500).json(error)
   }
